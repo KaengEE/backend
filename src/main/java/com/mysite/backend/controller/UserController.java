@@ -13,7 +13,7 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     User newUser(@RequestBody User newUser) {
         return userRepository.save(newUser);
     }
