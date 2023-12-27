@@ -37,4 +37,16 @@ public class UserController {
                 .orElseThrow(()-> new UserNotFoundException(id));
     }
 
+    //수정
+    @PutMapping("/users/{id}")
+    User updateUser(@RequestBody User newUser, @PathVariable Long id){
+        return userRepository.findById(id)
+                //id로 유저를 찾으면 map 실행
+                .map(user -> {
+                    user.setUsername(newUser.getUsername());
+                    user.setName(newUser.getName());
+                    user.setEmail(newUser.getEmail());
+                    return userRepository.save(user);
+                }).orElseThrow(()-> new UserNotFoundException(id));
+    }
 }
