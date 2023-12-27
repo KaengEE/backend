@@ -49,4 +49,15 @@ public class UserController {
                     return userRepository.save(user);
                 }).orElseThrow(()-> new UserNotFoundException(id));
     }
+
+    //삭제
+    @DeleteMapping("/users/{id}")
+    String deleteUser(@PathVariable Long id){
+        if(!userRepository.existsById(id)){
+            //existsById(id)는 id가 있으면 true 없으면 false
+            throw  new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
+        return "유저 아이디: " + id + "는 삭제 되었습니다.";
+    }
 }
